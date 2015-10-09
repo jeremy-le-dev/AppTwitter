@@ -1,0 +1,94 @@
+<!-- Title for header bar (refer to www/index.html) -->
+<ion-view title="Profile">
+  <!-- ======================
+  LEFT SIDE BUTTON
+  ====================== -->
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <!-- ======================
+  RIGHT SIDE BUTTON
+  ====================== -->
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-search"></button>
+  </ion-nav-buttons>
+  
+
+  <!-- ======================
+  MAIN CONTENT SECTION
+  ====================== -->
+  <ion-content class="has-header gem-ion-content">
+    <!-- ======================
+    GEMIONIC PROFILE SECTION
+    ====================== -->
+    <div class="gem-profile-media">
+      <div class="gem-profile-details">
+        <img src="img/gemionic/profile-image.jpg" alt="" class="gem-circle profile-image">
+        <h3 class="gem-white">Samantha Aryon</h3>
+        <h5 class="gem-white">London, England</h5>
+
+        <!-- ionic row - .profile-stats helps with transparency and white borders -->
+        <div class="row profile-stats">
+          <div class="col stat">
+            <h6 class="gem-white uppercase">Following</h6>
+            <h6 class="gem-white">352</h6>
+          </div>
+          <div class="col stat">
+            <h6 class="gem-white uppercase">Following</h6>
+            <h6 class="gem-white">6233</h6>
+          </div>
+          <div class="col stat">
+            <h6 class="gem-white uppercase">Following</h6>
+            <h6 class="gem-white">564</h6>
+          </div>
+        </div>
+        <!-- End Ionic row -->
+      </div>
+
+      <!-- background image -->
+      <img src="img/gemionic/post-img.jpg" alt="" class="fluid-image profile-background-image">
+    </div>
+    <!-- ======================
+    END GEMIONIC PROFILE SECTION
+    ====================== -->
+    
+    <div class="text-center padding">
+      <div class="button button-balanced">Find Friends</div>
+    </div>
+
+    <!-- Standard Ionic List Markup -->
+    <div class="list">
+       <a class="item item-icon-left" href="#">
+         <i class="icon ion-email"></i>
+         Send Message
+       </a>
+
+       <a class="item item-icon-left" href="#">
+         <i class="icon ion-chatbubble-working"></i>
+         Instant Message
+       </a>
+       
+       <a class="item item-icon-left item-button-right" href="#">
+         <i class="icon ion-social-facebook"></i>
+         Facebook Friends
+         <button class="button button-small button-positive uppercase">
+         Connect
+         </button>
+       </a>
+       <li class="item item-toggle item-icon-left">
+           <i class="icon ion-email"></i>
+           Syndicate Updates
+           <label class="toggle toggle-assertive">
+             <input type="checkbox">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+    </div>
+    <!-- End Standard Ionic List Markup -->
+
+
+  </ion-content>
+</ion-view>

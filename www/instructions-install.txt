@@ -1,0 +1,21 @@
+instructions:
+
+New Install:
+1) Copy all contents into the "www" folder of your project
+
+Already Existing project
+1) 
+Copy gemionic.zip/templates/social to
+your-project/templates/social (<-create)
+
+2)
+Copy gemionic.zip/images/gemionic to
+your-project/images/gemionic (default content for demo)
+
+3)
+copy gemionic.zip/css/style.css to
+your-project/css
+
+4)
+Link to the style.css in your top-level index.html. Documentation is in-code
+

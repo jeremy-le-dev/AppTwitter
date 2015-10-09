@@ -1,0 +1,80 @@
+<!-- Title for header bar (refer to www/index.html) -->
+<ion-view title="Send Email">
+  <!-- ======================
+  LEFT SIDE BUTTON
+  ====================== -->
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <!-- ======================
+  RIGHT SIDE BUTTON
+  ====================== -->
+  <ion-nav-buttons side="right">
+    <button class="button button-block  button-positive button-action">
+      Send/Post
+    </button>
+  </ion-nav-buttons>
+  
+  <!-- ======================
+  MAIN SECTION CONTENT
+  ====================== -->
+  <ion-content class="has-header gem-ion-content send-email">
+    <!-- Standard Ionic Field Markup (Subject) -->
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Subject</span>
+        <input type="text" placeholder="Email title">
+      </label>
+    </div>
+    <!-- Standard Ionic Field Markup -->
+    <div class="gem-edit-section">
+      <div class="gem-poster">
+          <div class="label-title uppercase">Recepients:</div>
+
+        <!-- recipients -->
+        <div class="row row-wrap">
+          <div class="col col-20 text-center">  
+            <!-- Round Image here. Fluid width and Colored ring stating statust -->
+            <img src="img/gemionic/profile-image.jpg" alt="" class="gem-circle fluid-image">
+          </div>
+          <div class="col col-20 text-center">  
+            <!-- Round Image here. Fluid width and Colored ring stating statust -->
+            <img src="img/gemionic/profile-image.jpg" alt="" class="gem-circle fluid-image">
+          </div>
+          <div class="col col-20 text-center">  
+            <!-- Round Image here. Fluid width and Colored ring stating statust -->
+            <img src="img/gemionic/profile-image.jpg" alt="" class="gem-circle fluid-image">
+          </div>
+          <div class="col col-20 text-center">  
+            <!-- Round Image here. Fluid width and Colored ring stating statust -->
+            <img src="img/gemionic/profile-image.jpg" alt="" class="gem-circle fluid-image">
+          </div>
+          <div class="col col-20 text-center">  
+            <i class="ion-plus-circled add-repicient"></i>
+          </div>
+        </div>
+        <!-- End recipients -->
+
+        <!-- Email body -->
+        <div>
+          <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta aspernatur, quisquam asperiores quas cum eius quo facere. Officia excepturi sunt consequuntur, assumenda iste iusto non fugit aliquid illum voluptatum, quae!</textarea>
+        </div>
+        <!-- Email body -->
+
+      </div>
+
+      <!-- Bottom Controls -->
+      <div class="row gem-poster-controls padding">
+        <a href="#" class="col control"><i class="icon ion-email action"></i></a>
+        <a href="#" class="col control"><i class="icon ion-android-location action"></i></a>
+        <a href="#" class="col control"><i class="icon ion-ios7-cloud-upload action"></i></a>
+        <a href="#" class="col control"><i class="icon ion-android-send action"></i></a>
+      </div>
+      <!-- End Bottom Controls -->
+    </div>
+    <!-- ======================
+    END MAIN SECTION CONTENT
+    ====================== -->
+  </ion-content>
+</ion-view>

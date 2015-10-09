@@ -1,0 +1,83 @@
+<!-- Title for header bar (refer to www/index.html) -->
+<ion-view title="Edit Profile">
+  <!-- ======================
+  LEFT SIDE BUTTON
+  ====================== -->
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <!-- ======================
+  RIGHT SIDE BUTTON
+  ====================== -->
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-checkmark-circled"></button>
+  </ion-nav-buttons>
+  
+  
+  <!-- ======================
+  MAIN CONTENT SECTION
+  ====================== -->
+  <ion-content class="has-header gem-ion-content profile-edit">
+    <!-- ======================
+    GEMIONIC PROFILE ADD PICTURE BANNER
+    ====================== -->
+    <div class="gem-profile-media">
+      <div class="gem-profile-details profile2">
+        <div class="text-center">
+          <i class="icon ion-plus-circled add-user-pic-icon"></i>
+          <p class="uppercase">Add user pic</p>
+        </div>
+      </div>
+    </div>
+    <!-- ======================
+    END GEMIONIC PROFILE ADD PICTURE BANNER
+    ====================== -->
+
+    <!-- Standard Ionic List -->
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">First Name</span>
+        <input type="text" placeholder="John">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Last Name</span>
+        <input type="text" placeholder="Suhr">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email</span>
+        <input type="text" placeholder="john@suhr.com">
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          City
+        </div>
+        <select>
+          <option>New York</option>
+          <option selected>Washington</option>
+          <option>London</option>
+        </select>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">About (500 Char)</span>
+        <textarea>A little description</textarea>
+      </label>
+    </div>
+
+    <!-- Separator Title (for forms and mini headings) -->
+    <div class="profile-separator-title"><i class="ion-gear-a"></i> Account Settings</div> 
+
+    <!-- Standard Ionic List -->
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email/Username</span>
+        <input type="text" placeholder="something@something.com">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Password</span>
+        <input type="password" value="vdvvdv">
+      </label>
+    </div>
+
+  </ion-content>
+</ion-view>
