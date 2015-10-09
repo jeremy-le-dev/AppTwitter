@@ -29,7 +29,8 @@ Ensuite, toujours à la racine du projet, installez les librairies :
 
 Une fois terminé, il faut lancer le serveur pour voir le projet.
 Dans un premier temps, on pourra utiliser le serveur par defaut de Ionic Framework.
-Il suffit d'executer la commande suivante : `ionic serve`
++ Il suffit d'executer la commande suivante : `ionic serve`
+
 
 PS : Pour voir l'aperçu avec IOS et Android executez avec -l : `ionic serve -l`
 
