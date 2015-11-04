@@ -18,7 +18,10 @@ Web Project - LP SIL IDSE
 
 ### Préparation du projet
 
-Tout d'abord, installez les outils :
+Tout d'abord, clonez le projet:
++ Dans le dossier de votre choix : `git clone https://github.com/Wainbot/AppTwitter.git`
+
+Puis, installez les outils :
 + Entrez en ligne de commande à la racine du projet AppTwitter/
 + Executez la commande : `npm install`
 
