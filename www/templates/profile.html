@@ -1,0 +1,51 @@
+<ion-view title="Profil de {{user.username}}">
+    <ion-nav-buttons side="left">
+        <button data-nav-direction="back" data-ng-click="myGoBack()" class="button button-icon icon ion-chevron-left"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="gem-ion-content">
+        <div class="gem-profile-media">
+            <div class="gem-profile-details profile2">
+                <h3 class="gem-white">{{user.username}}&nbsp;{{user.name}}</h3>
+                <div class="gem-center">
+                    <img class="img round-img thumb" src="" data-ng-src="{{user.avatar}}" alt=""/>
+                </div>
+            </div>
+            <img src="img/gemionic/post-img.jpg" alt="" class="fluid-image profile-background-image" style="vertical-align:middle;">
+        </div>
+
+        <div class="tabs gem-position-static profile-tabs">
+            <a class="tab-item active">
+                <i class="ion-ios-paper"></i>
+                Journal
+            </a>
+            <a class="tab-item">
+                <i class="ion-ios-body"></i>
+                À propos
+            </a>
+            <a class="tab-item">
+                <i class="ion-ios-people"></i>
+                Amis
+            </a>
+        </div>
+
+        <div class="profile-feed">
+            <div class="row">
+                <div class="col">
+                    <div class="profile-post" data-ng-repeat="post in posts">
+                        <img style="cursor:pointer;" data-nav-direction="forward" data-ui-sref="app.feed({id: post.id})" src="" data-ng-src="{{post.image}}" alt="">
+                        <p>{{post.title}}</p>
+                        <!--<span class="profile-post-stat"><i class="icon ion-heart"></i> 23 | <i-->
+                                <!--class="icon ion-chatbubble"></i> 23</span>-->
+                        <span class="profile-post-stat">
+                            <i class="icon ion-ios-clock"></i>
+                            Publié&nbsp;le&nbsp;{{post.created_at}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </ion-content>
+</ion-view>

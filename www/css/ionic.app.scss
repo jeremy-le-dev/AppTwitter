@@ -1,0 +1,80 @@
+$gris: #444444;
+$vert1: #41c9a5;
+$vert2: #30b798;
+$vert3: #249d83;
+
+// COLORS
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #41c9a5 !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444444 !default;
+
+// BARS
+$bar-height:                      64px !default;
+$bar-title-font-size:             25px !default;
+$bar-padding-portrait:            5px !default;
+$bar-padding-landscape:           5px !default;
+$bar-transparency:                0.8 !default;
+
+$bar-light-bg:                  $vert1 !default;
+$bar-light-text:                $light !default;
+$bar-light-border:              darken($dark, 30%) !default;
+$bar-light-active-bg:           $balanced !default;
+$bar-light-active-border:       darken($dark, 30%) !default;
+
+// BASE
+$font-family-sans-serif:          "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
+$font-family-light-sans-serif:    "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
+$font-family-serif:               serif !default;
+$font-family-monospace:           monospace !default;
+
+$font-family-base:                $font-family-sans-serif !default;
+$font-size-base:                  14px !default;
+$font-size-large:                 18px !default;
+$font-size-small:                 11px !default;
+
+$line-height-base:                1.428571429 !default; // 20/14
+$line-height-computed:            floor($font-size-base * $line-height-base) !default; // ~20px
+$line-height-large:               1.33 !default;
+$line-height-small:               1.5 !default;
+
+$headings-font-family:            $font-family-base !default;
+$headings-font-weight:            700 !default;
+$headings-line-height:            1.2 !default;
+
+$base-background-color:           $gris !default;
+$base-color:                      $gris !default;
+
+$link-color:                      $positive !default;
+$link-hover-color:                darken($link-color, 15%) !default;
+
+$content-padding:                 10px !default;
+
+$padding-base-vertical:           6px !default;
+$padding-base-horizontal:         12px !default;
+
+$padding-large-vertical:          10px !default;
+$padding-large-horizontal:        16px !default;
+
+$padding-small-vertical:          5px !default;
+$padding-small-horizontal:        10px !default;
+
+$border-radius-base:              4px !default;
+$border-radius-large:             6px !default;
+$border-radius-small:             3px !default;
+
+// Content
+// -------------------------------
+
+$scroll-refresh-icon-color:       #666666 !default;
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "../lib/ionic/scss/ionic";

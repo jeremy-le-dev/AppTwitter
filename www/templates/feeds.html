@@ -1,0 +1,31 @@
+<ion-view view-title="Kwitter" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button data-menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header gem-ion-content feed">
+        <div data-ng-repeat="post in posts">
+            <div class="news-media" style="cursor:pointer;" data-nav-direction="forward" data-ui-sref="app.feed({id: post.id})">
+                <img src="" data-ng-src="{{post.image}}" alt="" class="fluid-image">
+            </div>
+            <div class="news-item">
+                <div class="news-thumb">
+                    <img src="" data-ng-src="{{post.user.avatar}}" alt="" class="img">
+                </div>
+                <div class="news-content">
+                    <h4 style="cursor:pointer;" data-nav-direction="forward" data-ui-sref="app.profile({id: post.user.id})">{{post.user.username}}&nbsp;{{post.user.name}}</h4>
+                    <div class="gem-tiny-text news-item-stats">
+                        <i class="icon ion-clock"></i> Posté&nbsp;le&nbsp;{{post.created_at}}
+                      <!--<span class="news-comment-summary">-->
+                        <!--<i class="icon ion-heart"></i> 2-->
+                        <!--<i class="icon ion-chatbubble"></i> 3-->
+                      <!--</span>-->
+                    </div>
+                </div>
+                <div class="news-more-action">
+                    <i data-ng-click="" class="icon ion-share"></i>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
