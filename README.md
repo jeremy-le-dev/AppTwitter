@@ -7,16 +7,16 @@ Web Project - LP SIL IDSE
 + Allez sur <https://nodejs.org/en/> pour télécharger et installer NodeJS
 
 ### Installer Ionic Framework
-+ Executez la commande suivante : `npm install -g cordova ionic`
++ Executez la commande suivante : `sudo npm install -g cordova ionic`
 + Pour voir la doc : <http://ionicframework.com/docs/>
 
 ### Installer Bower
-+ Executez la commande suivante : `npm install -g bower`
-+ Pour voir la doc : <http://bower.io/>
++ Executez la commande suivante : `sudo npm install -g bower`
++ Pour voir la doc : <http://bower.io>
 
 ### Installer Gulp
-+ Executez la commande suivante : `npm install -g gulp`
-+ Pour voir la doc : <http://gulpjs.com//>
++ Executez la commande suivante : `sudo npm install -g gulp`
++ Pour voir la doc : <http://gulpjs.com>
 
 -
 
