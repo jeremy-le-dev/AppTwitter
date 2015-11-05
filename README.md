@@ -14,6 +14,10 @@ Web Project - LP SIL IDSE
 + Executez la commande suivante : `npm install -g bower`
 + Pour voir la doc : <http://bower.io/>
 
+### Installer Gulp
++ Executez la commande suivante : `npm install -g gulp`
++ Pour voir la doc : <http://gulpjs.com//>
+
 -
 
 ### Préparation du projet
