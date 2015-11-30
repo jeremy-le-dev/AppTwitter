@@ -38,6 +38,23 @@ Une fois terminÃ©, il faut lancer le serveur pour voir le projet.
 Dans un premier temps, on pourra utiliser le serveur par defaut de Ionic Framework.
 + Il suffit d'executer la commande suivante : `ionic serve`
 
+### Préparation de la base de données
+
+apt-get install postgres
+apt-get install php5-pgsql //pdo adapter
+
+Après mettez vous en root :
+su postgres
+psql //racine postgres 
+psql twitter //direct dans la base une fois créer
+
+Maintenant vous êtes dans la console de postgres :
+ouvrez le ficher postgres.sql et faites des copier-coller étape par étape.
+
+Commande utile :
+/q quitter
+/d description de tout les tables ou \d nom_table description une table
+/l à la racine de postgres pour lister les BDD
 
 PS : Pour voir l'aperÃ§u avec IOS et Android executez avec -l : `ionic serve -l`
 

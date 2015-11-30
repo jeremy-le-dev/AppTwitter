@@ -30,15 +30,38 @@ angular.module('starter', ['ionic'])
                     $rootScope.user = {
                         id: 15,
                         name: "Froment",
-                        username: "Jérémy",
+                        username: "Crêpe au",
                         email: "jeremyfroment@yahoo.fr",
-                        avatar: "img/jeremy.jpg"
+                        avatar: "img/crepe.jpg"
                     };
 
                     console.log("user:", $rootScope.user);
 
+                    $scope.CoData = {};
+                    $ionicModal.fromTemplateUrl('templates/connection.html', {
+                        scope: $scope
+                    }).then(function (modal) {
+                        $scope.modal2 = modal;
+                    });
+
+                    $scope.closeCo = function () {
+                        $scope.modal2.hide();
+                    };
+
+                    $scope.Co = function () {
+                        $scope.modal2.show();
+                    };
+
+                    $scope.doCo = function () {
+                        console.log('Doing Co', $scope.CoData);
+
+                        $timeout(function () {
+                            $scope.closeCo();
+                        }, 1000);
+                    };
+
                     $scope.loginData = {};
-                    $ionicModal.fromTemplateUrl('templates/social/login.html', {
+                    $ionicModal.fromTemplateUrl('templates/login.html', {
                         scope: $scope
                     }).then(function (modal) {
                         $scope.modal = modal;

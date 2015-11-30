@@ -1,0 +1,29 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">Connexion</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeCo()"><i class="icon ion-close-circled"></i></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doCo()" class="gem-form">
+      <div class="list">
+       <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" ng-model="CoData.email" placeholder="email">
+        </label>  
+        <label class="item item-input">
+          <span class="input-label">Mot de passe</span>
+          <input type="password" ng-model="CoData.password" placeholder="Password">
+        </label>
+        <label class="item">
+          <button data-ui-sref="app.feeds" ng-click="closeCo()" class="button button-block button-positive" type="submit">Valider</button>
+        </label>
+       <div class="text-center padding">
+          <div class="padding">Pas encore inscrit?</div>
+          <button class="button button-positive"  data-ng-click="login();closeCo()" type="submit">Inscription gratuite</button>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</div>

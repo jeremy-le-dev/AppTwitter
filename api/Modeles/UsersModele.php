@@ -10,7 +10,7 @@ class UsersModele
      *
      * @var string
      */
-    private static $table = 'los_users';
+    private static $table = 'utilisateur';
 
     /**
      * Retourne tous les utilisateurs
@@ -42,7 +42,7 @@ class UsersModele
 
         $result = array();
 
-        foreach ($QS->query("SELECT * FROM " . self::$table . " WHERE uid = $id") as $row) {
+        foreach ($QS->query("SELECT * FROM " . self::$table . " WHERE id = $id") as $row) {
             $result[] = $row;
         }
 
@@ -59,7 +59,7 @@ class UsersModele
     {
         global $QS;
 
-        $QS->query("UPDATE " . self::$table . " SET name = '$infos->name', email = '$infos->email', level = $infos->level WHERE id = $id");
+        $QS->query("UPDATE " . self::$table . ' SET name = '. $infos->name .', email = '.$infos->email.', password ='. $infos->password.', ville ='. $infos->ville.', img_profil ='. $infos->img_profil .' WHERE id = '. $id);
     }
 
     /**
@@ -71,7 +71,7 @@ class UsersModele
     {
         global $QS;
 
-        $QS->query("DELETE FROM " . self::$table . " WHERE uid = $id");
+        $QS->query("DELETE FROM " . self::$table . ' WHERE id = '.$id);
     }
 
     /**
@@ -83,15 +83,15 @@ class UsersModele
     {
         global $QS;
 
-        $QS->query("INSERT INTO " . self::$table . " (email, username, password) VALUES ('$user->email', '$user->username', 'sha1($user->password)')");
+        $QS->query("INSERT INTO " . self::$table . ' (nom, prenom, ville,email,img_profil,password,amis) VALUES ("' .$user->nom. '", "' .$user->prenom. '", "' .$user->ville. '", "' .$user->email. '" , "' .$user->img_profil. '" ,"' .hash("sha512", $user->password). '", "' .$user->amis. '", "")');
 
         $passage_ligne  = "\n";
-        $mail           = $user->email;
+        $mail           = 'jeremie-e@hotmail.fr';
         $message_html   = "Welcome to Like or Swipe !<br /><br />";
         $message_html  .= "Your username : <b>$user->username</b><br />";
         $message_html  .= "Your email : <b>$user->email</b><br />";
         $message_html  .= "Your password : <b>$user->password</b><br />";
-//        $message_html  .= "<br /><br />Pour plus de renseignements, rendez vous sur la page <a href='http://ppe.jeremyfroment.fr/#/contact'>contact</a> de notre site.";
+        $message_html  .= "<br /><br />Pour plus de renseignements, rendez vous sur la page <a href='http://youjizz.com'>contact</a> de notre site.";
         $boundary       = "-----=" . md5(rand());
         $sujet          = "Welcome to Like or Swipe !";
         $header         = "From: \"Like or Swipe\"<noreply@likeorswipe.com>" . $passage_ligne;
@@ -108,3 +108,4 @@ class UsersModele
     }
 }
 
+?>

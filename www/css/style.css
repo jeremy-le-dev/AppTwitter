@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .gem-ion-content {
-    color: #34495E;
+   color: #111;;
 }
 
 /*Sidebar*/
@@ -832,9 +832,9 @@ label.item.item-input textarea {
 
 .profile-tabs, .tabs {
     border: none;
-    border-bottom: 3px solid #249d83;
-    border-top: 2px solid #4b4b4b;
-    background: #4b4b4b;
+    border-bottom: 3px solid #FEDC00;
+    border-top: 0px solid #4b4b4b;
+    background: #ffffff;
 }
 
 /*Profile Version 3*/
@@ -904,14 +904,14 @@ label.item.item-input textarea {
 }
 
 .tabs .tab-item.active {
-    background: #41c9a5;
+    background: #FEDC00;;
     color: #fff;
 }
 
 .tabs .tab-item {
     background: none;
-    color: #41c9a5;
-    font-weight: bolder;
+    color: black;
+    font-weight: bold;
 }
 
 /*Invite Friend List*/
@@ -957,7 +957,7 @@ label.item.item-input textarea {
 /* close commented backslash hack */
 
 .bar-light.bar-header {
-    border-bottom: 5px solid #249d83;
+    border-bottom: 5px solid rgba(254, 220, 0, 1);
 }
 
       
