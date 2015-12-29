@@ -67,14 +67,11 @@ angular.module('starter', ['ionic'])
                 views: {
                     'menuContent': {
                         templateUrl: "templates/feeds.html",
-                        resolve: {
-                            posts: function(Posts) {
-                                return Posts.getAll();
-                            }
-                        },
-                        controller: ["$rootScope", "$scope", "posts", function($rootScope, $scope, posts) {
-                            console.log("posts: ", posts);
-                            $scope.posts = posts;
+                        controller: ["$rootScope", "$scope", "Posts", function($rootScope, $scope, Posts) {
+                            Posts.getAll().then(function (posts) {
+                                $scope.posts = posts;
+                                console.log("posts: ", posts);
+                            });
                         }]
                     }
                 }
@@ -85,13 +82,11 @@ angular.module('starter', ['ionic'])
                 views: {
                     'menuContent' :{
                         templateUrl: "templates/feed.html",
-                        resolve: {
-                            post: function($stateParams, Posts) {
-                                return Posts.getById($stateParams.id);
-                            }
-                        },
-                        controller: ["$rootScope", "$scope", "post", function($rootScope, $scope, post) {
-                            console.log("post: ", post);
+                        controller: ["$rootScope", "$scope", "$stateParams", "post", function($rootScope, $scope, $stateParams, Posts) {
+                            Posts.getById($stateParams.id).then(function (post) {
+                                $scope.post = post;
+                                console.log("post: ", post);
+                            });
                             $scope.post = post;
                         }]
                     }
@@ -236,7 +231,7 @@ angular.module('starter', ['ionic'])
         $urlRouterProvider.otherwise('/app/start');
     })
 
-    .factory('Users', function($rootScope) {
+    .factory('Users', function($rootScope, $http) {
         var users = [
             {
                 id: 0,
@@ -291,7 +286,7 @@ angular.module('starter', ['ionic'])
         }
     })
 
-    .factory('Posts', function($rootScope, Users) {
+    .factory('Posts', function($rootScope, $http, $q, Users) {
         var posts = [
             {
                 id: 0,
@@ -334,24 +329,40 @@ angular.module('starter', ['ionic'])
                 user: Users.getById(4)
             }
         ];
-
+        var deferred = $q.defer();
         return {
             getAll: function() {
-                return posts;
+                $http.get("api.php/tweets")
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get tweets");
+                    });
+
+                return deferred.promise;
             },
             getById: function(id) {
-                return posts[id];
+                $http.get("api.php/tweets/"+id)
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get tweets");
+                    });
+
+                return deferred.promise;
             },
             getByUser: function(userId) {
-                var postsUser= [];
+                $http.get("api.php/tweets/user/"+id)
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get tweets");
+                    });
 
-                for (var i = 0; i < posts.length; i++) {
-                    if (posts[i].user.id == userId) {
-                        postsUser.push(post);
-                    }
-                }
-
-                return postsUser;
+                return deferred.promise;
             },
             add: function(post) {
                 posts.push(post);

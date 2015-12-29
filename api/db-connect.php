@@ -1,8 +1,8 @@
 <?php global $QS;
 
 try {
-//    $QS = new PDO('mysql:host=localhost;dbname=los', 'root', 'root');
-    $QS->query('SET NAMES "utf8"');
+    $QS = new PDO("pgsql:host=localhost;dbname=twitter", "postgres", "root");
+    // $QS->prepare('SET NAMES "utf8"')->execute();
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();

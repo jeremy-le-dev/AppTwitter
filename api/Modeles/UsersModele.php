@@ -10,7 +10,7 @@ class UsersModele
      *
      * @var string
      */
-    private static $table = 'los_users';
+    private static $table = 'UTILISATEUR';
 
     /**
      * Retourne tous les utilisateurs
@@ -21,13 +21,10 @@ class UsersModele
     {
         global $QS;
 
-        $result = array();
+        $qry = $QS->prepare("SELECT id, nom, prenom, ville, email, img_profil, date_creation, amis FROM " . self::$table);
+        $qry->execute();
 
-        foreach ($QS->query("SELECT * FROM " . self::$table) as $row) {
-            $result[] = $row;
-        }
-
-        return $result;
+        return $qry->fetchAll();
     }
 
     /**
@@ -40,13 +37,10 @@ class UsersModele
     {
         global $QS;
 
-        $result = array();
+        $qry = $QS->prepare("SELECT id, nom, prenom, ville, email, img_profil, date_creation, amis FROM " . self::$table . " WHERE id = $id");
+        $qry->execute();
 
-        foreach ($QS->query("SELECT * FROM " . self::$table . " WHERE uid = $id") as $row) {
-            $result[] = $row;
-        }
-
-        return $result;
+        return $qry->fetchAll();
     }
 
     /**
@@ -59,7 +53,8 @@ class UsersModele
     {
         global $QS;
 
-        $QS->query("UPDATE " . self::$table . " SET name = '$infos->name', email = '$infos->email', level = $infos->level WHERE id = $id");
+        $qry = $QS->prepare("UPDATE " . self::$table . ' SET name = '. $infos->name .', email = '.$infos->email.', password ='. $infos->password.', ville ='. $infos->ville.', img_profil ='. $infos->img_profil .' WHERE id = '. $id);
+        $qry->execute();
     }
 
     /**
@@ -71,7 +66,8 @@ class UsersModele
     {
         global $QS;
 
-        $QS->query("DELETE FROM " . self::$table . " WHERE uid = $id");
+        $qry = $QS->prepare("DELETE FROM " . self::$table . ' WHERE id = '.$id);
+        $qry->execute();
     }
 
     /**
@@ -83,28 +79,17 @@ class UsersModele
     {
         global $QS;
 
-        $QS->query("INSERT INTO " . self::$table . " (email, username, password) VALUES ('$user->email', '$user->username', 'sha1($user->password)')");
+        $qry = $QS->prepare("INSERT INTO " . self::$table . ' (nom, prenom, ville, email, img_profil, password, amis) VALUES ("' .$user->nom. '", "' .$user->prenom. '", "' .$user->ville. '", "' .$user->email. '" , "' .$user->img_profil. '" ,"' .hash("sha512", $user->password). '", "' .$user->amis. '", "")');
+        $qry->execute();
+    }
 
-        $passage_ligne  = "\n";
-        $mail           = $user->email;
-        $message_html   = "Welcome to Like or Swipe !<br /><br />";
-        $message_html  .= "Your username : <b>$user->username</b><br />";
-        $message_html  .= "Your email : <b>$user->email</b><br />";
-        $message_html  .= "Your password : <b>$user->password</b><br />";
-//        $message_html  .= "<br /><br />Pour plus de renseignements, rendez vous sur la page <a href='http://ppe.jeremyfroment.fr/#/contact'>contact</a> de notre site.";
-        $boundary       = "-----=" . md5(rand());
-        $sujet          = "Welcome to Like or Swipe !";
-        $header         = "From: \"Like or Swipe\"<noreply@likeorswipe.com>" . $passage_ligne;
-        $header        .= "MIME-Version: 1.0" . $passage_ligne;
-        $header        .= "Content-Type: multipart/alternative;" . $passage_ligne . " boundary=\"$boundary\"" . $passage_ligne;
-        $message        = $passage_ligne . "--" . $boundary . $passage_ligne;
-        $message       .= "Content-Type: text/html; charset=\"UTF-8\"" . $passage_ligne;
-        $message       .= "Content-Transfer-Encoding: 8bit" . $passage_ligne;
-        $message       .= $passage_ligne . $message_html . $passage_ligne;
-        $message       .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
-        $message       .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
+    public static function canConnexion($email, $password)
+    {
+        global $QS;
 
-        mail($mail, $sujet, $message, $header);
+        $qry = $QS->prepare("SELECT id, nom, prenom, ville, email, img_profil, date_creation, amis FROM " . self::$table . " WHERE email = $email AND password = '" . hash("sha512", $password) . "'");
+        $qry->execute();
+
+        return $qry->fetchAll();
     }
 }
-
