@@ -200,7 +200,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .gem-ion-content {
 
 /*Login Screen*/
 .gem-splash_background {
-    background: #222224 url('../img/gemionic/background.jpg');
+    /*background: #222224 url('../img/tweets/background.jpg');*/
+    background: #222224;
 }
 
 .gem-form {
@@ -612,7 +613,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .gem-ion-content {
 }
 
 .gem-trans-gradient-down {
-    background: url('../img/gemionic/gem-trans-gradient-down.png') left bottom;
+    background: url('../img/tweets/gem-trans-gradient-down.png') left bottom;
     height: 108px;
     z-index: 1;
     top: 0;
@@ -620,7 +621,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .gem-ion-content {
 }
 
 .gem-trans-gradient-up {
-    background: url('../img/gemionic/gem-trans-gradient-up.png') left top;
+    background: url('../img/tweets/gem-trans-gradient-up.png') left top;
     min-height: 108px;
     z-index: 1;
     bottom: 0;

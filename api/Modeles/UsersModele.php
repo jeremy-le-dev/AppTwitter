@@ -87,7 +87,7 @@ class UsersModele
     {
         global $QS;
 
-        $qry = $QS->prepare("SELECT id, nom, prenom, ville, email, img_profil, date_creation, amis FROM " . self::$table . " WHERE email = $email AND password = '" . hash("sha512", $password) . "'");
+        $qry = $QS->prepare("SELECT id, nom, prenom, ville, email, img_profil, date_creation, amis FROM " . self::$table . " WHERE email = '$email' AND password = '" . hash("sha512", $password) . "'");
         $qry->execute();
 
         return $qry->fetchAll();

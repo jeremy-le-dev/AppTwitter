@@ -16,29 +16,34 @@ angular.module('starter', ['ionic'])
 
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-
             .state('app', {
                 url: "/app",
                 abstract: true,
                 templateUrl: "templates/menu.html",
-                controller: ["$rootScope", "$scope", "$ionicModal", "$timeout", "$ionicHistory", function ($rootScope, $scope, $ionicModal, $timeout, $ionicHistory) {
+                controller: ["$rootScope", "$scope", "$ionicModal", "$timeout", "$ionicHistory", "$state", "$http", "Users", function ($rootScope, $scope, $ionicModal, $timeout, $ionicHistory, $state, $http, Users) {
+                    $http.get("api.php/session")
+                        .success(function(data) {
+                            if (data.length == 0) {
+                                $state.go("app.start");
+                                $rootScope.user = {};
+                            } else {
+                                $rootScope.user = data;
+                            }
+                        })
+                        .error(function() {
+                            $state.go("app.start");
+                        });
 
                     $scope.myGoBack = function() {
-                        $ionicHistory.goBack();
+                        if ($ionicHistory.viewHistory().forwardView != null) {
+                            $ionicHistory.goBack();
+                        } else {
+                            $state.go('app.feeds');
+                        }
                     };
-
-                    $rootScope.user = {
-                        id: 15,
-                        name: "Froment",
-                        username: "Jérémy",
-                        email: "jeremyfroment@yahoo.fr",
-                        avatar: "img/jeremy.jpg"
-                    };
-
-                    console.log("user:", $rootScope.user);
 
                     $scope.loginData = {};
-                    $ionicModal.fromTemplateUrl('templates/social/login.html', {
+                    $ionicModal.fromTemplateUrl('templates/login.html', {
                         scope: $scope
                     }).then(function (modal) {
                         $scope.modal = modal;
@@ -53,11 +58,24 @@ angular.module('starter', ['ionic'])
                     };
 
                     $scope.doLogin = function () {
-                        console.log('Doing login', $scope.loginData);
+                        Users.connexion($scope.loginData.email, $scope.loginData.password).then(function(data) {
+                            if (data.length > 0) {
+                                $scope.closeLogin();
+                                $state.go("app.feeds");
+                                $rootScope.user = data;
+                            } else {
+                                $scope.messageErreur = "Email ou mot de passe incorrecte";
+                            }
+                        });
+                    };
 
-                        $timeout(function () {
-                            $scope.closeLogin();
-                        }, 1000);
+                    $scope.doLogout = function() {
+                        Users.deconnexion().then(function(data) {
+                            if (data == true) {
+                                $rootScope.user = {};
+                                $state.go("app.start");
+                            }
+                        })
                     };
                 }]
             })
@@ -69,8 +87,12 @@ angular.module('starter', ['ionic'])
                         templateUrl: "templates/feeds.html",
                         controller: ["$rootScope", "$scope", "Posts", function($rootScope, $scope, Posts) {
                             Posts.getAll().then(function (posts) {
+                                posts.forEach(function(item) {
+                                    item.heure_publication = new Date(item.heure_publication).getTime();
+                                });
+
                                 $scope.posts = posts;
-                                console.log("posts: ", posts);
+                                //console.log("posts: ", $scope.posts);
                             });
                         }]
                     }
@@ -82,12 +104,11 @@ angular.module('starter', ['ionic'])
                 views: {
                     'menuContent' :{
                         templateUrl: "templates/feed.html",
-                        controller: ["$rootScope", "$scope", "$stateParams", "post", function($rootScope, $scope, $stateParams, Posts) {
+                        controller: ["$rootScope", "$scope", "$stateParams", "Posts", function($rootScope, $scope, $stateParams, Posts) {
                             Posts.getById($stateParams.id).then(function (post) {
                                 $scope.post = post;
-                                console.log("post: ", post);
+                                //console.log("post: ", $scope.post);
                             });
-                            $scope.post = post;
                         }]
                     }
                 }
@@ -106,232 +127,98 @@ angular.module('starter', ['ionic'])
                 url: "/profile/:id",
                 views: {
                     'menuContent' :{
-                        templateUrl: "templates/profile.html",
-                        resolve: {
-                            user: function($stateParams, Users) {
-                                return Users.getById($stateParams.id);
-                            },
-                            posts: function(Posts) {
-                                return Posts.getAll();
-                            }
-                        },
-                        controller: ["$rootScope", "$scope", "$ionicTabsDelegate", "user", "posts", function($rootScope, $scope, $ionicTabsDelegate, user, posts) {
-                            console.log("user: ", user);
-                            $scope.user = user;
+                        //templateUrl: "templates/profile.html",
+                        templateUrl: "templates/profile-edit.html",
+                        controller: ["$rootScope", "$scope", "$ionicTabsDelegate", "$stateParams", "Users", "Posts", function($rootScope, $scope, $ionicTabsDelegate, $stateParams, Users, Posts) {
+                            Users.getById($stateParams.id).then(function (user) {
+                                $scope.userPage = user;
+                                //console.log("userPage: ", $scope.userPage);
+                            });
 
-                            console.log("posts: ", posts);
-                            $scope.posts = posts;
+                            Posts.getByUser($stateParams.id).then(function (posts) {
+                                posts.forEach(function(item) {
+                                    item.heure_publication = new Date(item.heure_publication).getTime();
+                                });
+
+                                $scope.posts = posts;
+                                //console.log("posts: ", $scope.posts);
+                            });
                         }]
                     }
                 }
             });
-//
-//    .state('app.fgrid', {
-//      url: "/fgrid",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/friend-grid.html"
-//        }
-//      }
-//    })
-//
-//    .state('app.flist', {
-//      url: "/flist",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/friends.html"
-//        }
-//      }
-//    })
-//
-//    .state('app.newpost', {
-//      url: "/newpost",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/new-post.html"
-//        }
-//      }
-//    })
-//
-//    .state('app.email', {
-//      url: "/email",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/send-email.html"
-//        }
-//      }
-//    })
-//
-//    .state('app.profile', {
-//      url: "/profile",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/profile.html"
-//        }
-//      }
-//    })
-//
-//    .state('app.timeline', {
-//      url: "/timeline",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/timeline.html"
-//        }
-//      }
-//    })
-//
-//    .state('app.editprofile', {
-//      url: "/editprofile",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/profile-edit.html"
-//        }
-//      }
-//    })
-//
-//
-//    .state('app.profilethree', {
-//      url: "/profilethree",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/profile3.html"
-//        }
-//      }
-//    })
-//
-//    .state('app.news', {
-//      url: "/news",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/news.html"
-//        }
-//      }
-//    })
-//
-
-
-//    .state('app.viewposttwo', {
-//      url: "/viewposttwo",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/view-post-2.html"
-//        }
-//      }
-//    })
-//
-//    .state('app.invite', {
-//      url: "/invite",
-//      views: {
-//        'menuContent' :{
-//          templateUrl: "templates/social/social-invite-friend.html"
-//        }
-//      }
-//    });
 
         $urlRouterProvider.otherwise('/app/start');
     })
 
-    .factory('Users', function($rootScope, $http) {
-        var users = [
-            {
-                id: 0,
-                username: "Tammy",
-                name: "Wilson",
-                email: "tammywilson@kwitter.com",
-                avatar: "img/67.jpg"
-            },
-            {
-                id: 1,
-                username: "Larry",
-                name: "Lucas",
-                email: "larrylucas@kwitter.com",
-                avatar: "img/82.jpg"
-            },
-            {
-                id: 2,
-                username: "Louis",
-                name: "Taylor",
-                email: "louistaylor@kwitter.com",
-                avatar: "img/78.jpg"
-            },
-            {
-                id: 3,
-                username: "Vicki",
-                name: "Sanchez",
-                email: "vickisanchez@kwitter.com",
-                avatar: "img/0.jpg"
-            },
-            {
-                id: 4,
-                username: "Margie",
-                name: "Jacobs",
-                email: "margiejacobs@kwitter.com",
-                avatar: "img/68.jpg"
-            }
-        ];
-
+    .factory('Users', function($rootScope, $http, $q) {
         return {
-            getFriends: function() {
-                return users;
+            getFriends: function(id) {
+                var deferred = $q.defer();
+
+                $http.get("api.php/user/"+ id +"/friends")
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get friends");
+                    });
+
+                return deferred.promise;
             },
             getById: function(id) {
-                return users[id];
+                var deferred = $q.defer();
+
+                $http.get("api.php/user/"+id)
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get user");
+                    });
+
+                return deferred.promise;
             },
             add: function(user) {
-                users.push(user);
+                // AJOUT UTILISATEUR
             },
             remove: function(id) {
-                users.remove(id);
+                // SUPPRESSION UTILISATEUR
+            },
+            connexion: function(email, password) {
+                var deferred = $q.defer();
+
+                $http.get("api.php/connexion/"+email+"/"+password)
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get connexion");
+                    });
+
+                return deferred.promise;
+            },
+            deconnexion: function() {
+                var deferred = $q.defer();
+
+                $http.get("api.php/deconnexion")
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get deconnexion");
+                    });
+
+                return deferred.promise;
             }
         }
     })
 
-    .factory('Posts', function($rootScope, $http, $q, Users) {
-        var posts = [
-            {
-                id: 0,
-                title: "Mon premier post",
-                content: "Paphius quin etiam et Cornelius senatores, ambo venenorum artibus pravis se polluisse confessi, eodem pronuntiante Maximino sunt interfecti. pari sorte etiam procurator monetae extinctus est. Sericum enim et Asbolium supra dictos, quoniam cum hortaretur passim nominare, quos vellent, adiecta religione firmarat, nullum igni vel ferro se puniri iussurum, plumbi validis ictibus interemit. et post hoe flammis Campensem aruspicem dedit, in negotio eius nullo sacramento constrictus.",
-                image: "img/gemionic/gall-item-1.jpg",
-                created_at: "26/10/15",
-                user: Users.getById(0)
-            },
-            {
-                id: 1,
-                title: "Mon deuxieme post",
-                content: "Paphius quin etiam et Cornelius senatores, ambo venenorum artibus pravis se polluisse confessi, eodem pronuntiante Maximino sunt interfecti. pari sorte etiam procurator monetae extinctus est. Sericum enim et Asbolium supra dictos, quoniam cum hortaretur passim nominare, quos vellent, adiecta religione firmarat, nullum igni vel ferro se puniri iussurum, plumbi validis ictibus interemit. et post hoe flammis Campensem aruspicem dedit, in negotio eius nullo sacramento constrictus.",
-                image: "img/gemionic/gall-item-2.jpg",
-                created_at: "26/10/15",
-                user: Users.getById(1)
-            },
-            {
-                id: 2,
-                title: "Mon troisieme post",
-                content: "Paphius quin etiam et Cornelius senatores, ambo venenorum artibus pravis se polluisse confessi, eodem pronuntiante Maximino sunt interfecti. pari sorte etiam procurator monetae extinctus est. Sericum enim et Asbolium supra dictos, quoniam cum hortaretur passim nominare, quos vellent, adiecta religione firmarat, nullum igni vel ferro se puniri iussurum, plumbi validis ictibus interemit. et post hoe flammis Campensem aruspicem dedit, in negotio eius nullo sacramento constrictus.",
-                image: "img/gemionic/gall-item-3.jpg",
-                created_at: "26/10/15",
-                user: Users.getById(2)
-            },
-            {
-                id: 3,
-                title: "Mon quatrieme post",
-                content: "Paphius quin etiam et Cornelius senatores, ambo venenorum artibus pravis se polluisse confessi, eodem pronuntiante Maximino sunt interfecti. pari sorte etiam procurator monetae extinctus est. Sericum enim et Asbolium supra dictos, quoniam cum hortaretur passim nominare, quos vellent, adiecta religione firmarat, nullum igni vel ferro se puniri iussurum, plumbi validis ictibus interemit. et post hoe flammis Campensem aruspicem dedit, in negotio eius nullo sacramento constrictus.",
-                image: "img/gemionic/gall-item-4.jpg",
-                created_at: "26/10/15",
-                user: Users.getById(3)
-            },
-            {
-                id: 4,
-                title: "Mon cinquieme post",
-                content: "Paphius quin etiam et Cornelius senatores, ambo venenorum artibus pravis se polluisse confessi, eodem pronuntiante Maximino sunt interfecti. pari sorte etiam procurator monetae extinctus est. Sericum enim et Asbolium supra dictos, quoniam cum hortaretur passim nominare, quos vellent, adiecta religione firmarat, nullum igni vel ferro se puniri iussurum, plumbi validis ictibus interemit. et post hoe flammis Campensem aruspicem dedit, in negotio eius nullo sacramento constrictus.",
-                image: "img/gemionic/gall-item-5.jpg",
-                created_at: "26/10/15",
-                user: Users.getById(4)
-            }
-        ];
-        var deferred = $q.defer();
+    .factory('Posts', function($rootScope, $http, $q) {
         return {
             getAll: function() {
+                var deferred = $q.defer();
+
                 $http.get("api.php/tweets")
                     .success(function(data) {
                         deferred.resolve(data);
@@ -343,6 +230,8 @@ angular.module('starter', ['ionic'])
                 return deferred.promise;
             },
             getById: function(id) {
+                var deferred = $q.defer();
+
                 $http.get("api.php/tweets/"+id)
                     .success(function(data) {
                         deferred.resolve(data);
@@ -353,7 +242,9 @@ angular.module('starter', ['ionic'])
 
                 return deferred.promise;
             },
-            getByUser: function(userId) {
+            getByUser: function(id) {
+                var deferred = $q.defer();
+
                 $http.get("api.php/tweets/user/"+id)
                     .success(function(data) {
                         deferred.resolve(data);
@@ -365,10 +256,10 @@ angular.module('starter', ['ionic'])
                 return deferred.promise;
             },
             add: function(post) {
-                posts.push(post);
+                // AJOUT POST
             },
             remove: function(id) {
-                posts.remove(id);
+                // SUPPRESSION POST
             }
         }
     });

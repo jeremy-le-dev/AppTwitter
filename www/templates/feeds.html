@@ -1,29 +1,32 @@
-<ion-view view-title="Kwitter" hide-back-button="true">
+<ion-view view-title="<img src='img/logo.png' alt='logo' style='height:30px;'>" hide-back-button="true">
     <ion-nav-buttons side="left">
         <button data-menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
 
     <ion-content class="has-header gem-ion-content feed">
         <div data-ng-repeat="post in posts">
-            <div class="news-media" style="cursor:pointer;" data-nav-direction="forward" data-ui-sref="app.feed({id: post.id})">
+            <div class="news-media" style="cursor:pointer;" data-nav-direction="forward"
+                 data-ui-sref="app.feed({id: post.id})">
                 <img src="" data-ng-src="{{post.media}}" alt="" class="fluid-image">
             </div>
             <div class="news-item">
                 <div class="news-thumb">
-                    <img src="" data-ng-src="{{post.user.avatar}}" alt="" class="img">
+                    <img src="" data-ng-src="{{post.utilisateur[0].img_profil}}" alt="" class="img">
                 </div>
                 <div class="news-content">
-                    <h4 style="cursor:pointer;" data-nav-direction="forward" data-ui-sref="app.profile({id: post.user.id})">{{post.user.username}}&nbsp;{{post.user.name}}</h4>
+                    <h4 style="cursor:pointer;" data-nav-direction="forward"
+                        data-ui-sref="app.profile({id: post.utilisateur[0].id})">{{post.utilisateur[0].prenom}}&nbsp;{{post.utilisateur[0].nom}}</h4>
                     <div class="gem-tiny-text news-item-stats">
-                        <i class="icon ion-clock"></i> Posté&nbsp;le&nbsp;{{post.heure_publication}}
-                      <!--<span class="news-comment-summary">-->
-                        <!--<i class="icon ion-heart"></i> 2-->
-                        <!--<i class="icon ion-chatbubble"></i> 3-->
-                      <!--</span>-->
+                        <i class="icon ion-clock"></i> Posté&nbsp;le&nbsp;{{post.heure_publication | date:"dd-MM-yyyy 'à' HH:mm"}}
+                        <span class="news-comment-summary">
+                            <i class="icon ion-heart"></i>
+                            {{post.nb_like}}
+                        </span>
                     </div>
                 </div>
                 <div class="news-more-action">
-                    <i data-ng-click="" class="icon ion-share"></i>
+                    <i data-ng-click="dislike(post.id)" class="icon ion-ios-heart" style="color: red;" data-ng-if="iLike(post.id)"></i>
+                    <i data-ng-click="like(post.id)" class="icon ion-ios-heart-outline" data-ng-if="!iLike(post.id)"></i>
                 </div>
             </div>
         </div>

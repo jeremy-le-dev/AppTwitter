@@ -1,4 +1,4 @@
-<ion-view title="{{post.title}}">
+<ion-view title="<img src='img/logo.png' alt='logo' style='height:30px;'>">
     <ion-nav-buttons side="left">
         <button data-nav-direction="back" data-ng-click="myGoBack()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-buttons>
@@ -8,19 +8,19 @@
 
     <ion-content class="gem-ion-content single-post">
         <div class="gem-post-media">
-            <img src="" data-ng-src="{{post.image}}" alt="" class="fluid-image">
+            <img src="" data-ng-src="{{post.media}}" alt="" class="fluid-image">
 
             <h3 class="post-title">
-                {{post.title}}
+                {{post.description}}
                 <br/>
-                <span style="cursor:pointer;" class="gem-tiny-text" data-nav-direction="forward" data-ui-sref="app.profile({id: post.user.id})">Par&nbsp;{{post.user.username}}&nbsp;{{post.user.name}}</span>
+                <span style="cursor:pointer;" class="gem-tiny-text" data-nav-direction="forward" data-ui-sref="app.profile({id: post.utilisateur[0].id})">Par&nbsp;{{post.utilisateur[0].prenom}}&nbsp;{{post.utilisateur[0].nom}}</span>
             </h3>
 
             <div class="bottombar-and-shadow"></div>
         </div>
 
         <div class="gem-post-content">
-            <p data-ng-bind-html="post.content"></p>
+            <p data-ng-bind-html="post.description"></p>
         </div>
     </ion-content>
 </ion-view>

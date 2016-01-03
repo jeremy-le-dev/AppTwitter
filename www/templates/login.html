@@ -1,0 +1,37 @@
+<div class="modal">
+    <ion-header-bar>
+        <h1 class="title" style="color: #FFF;">
+            Connexion
+        </h1>
+        <div class="buttons">
+            <button class="button button-clear" style="color: #FFF;" ng-click="closeLogin()">
+                <i class="icon ion-close-circled"></i>
+            </button>
+        </div>
+    </ion-header-bar>
+    <ion-content style="top: -64px;">
+        <form data-ng-submit="doLogin()" class="gem-form">
+            <div class="list">
+                <label class="item item-input" data-ng-if="messageErreur" style="border: none; text-align: center; color: red;">
+                    {{messageErreur}}
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Email</span>
+                    <input type="text" ng-model="loginData.email" placeholder="Email">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Mot de passe</span>
+                    <input type="password" ng-model="loginData.password" placeholder="Mot de passe">
+                </label>
+                <label class="item" style="border: none;">
+                    <button class="button button-block button-balanced" type="submit">Se connecter</button>
+                </label>
+                <div class="text-center padding">
+                    <div class="padding">Pas encore inscrit ?</div>
+                    <button class="button button-dark" type="submit">Inscrivez vous gratuitement</button>
+                </div>
+            </div>
+        </form>
+    </ion-content>
+</div>
+

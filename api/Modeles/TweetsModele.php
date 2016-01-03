@@ -24,7 +24,12 @@ class TweetsModele
         $qry = $QS->prepare("SELECT id, description, media, id_utilisateur, nb_like, heure_publication FROM " . self::$table);
         $qry->execute();
 
-        return $qry->fetchAll();
+        $tweets = $qry->fetchAll();
+        foreach($tweets as &$tweet) {
+            $tweet['utilisateur'] = self::getUserByTweet($tweet['id_utilisateur']);
+        }
+
+        return $tweets;
     }
 
     /**
@@ -39,7 +44,10 @@ class TweetsModele
         $qry = $QS->prepare("SELECT id, description, media, id_utilisateur, nb_like, heure_publication FROM " . self::$table . " WHERE id = $id");
         $qry->execute();
 
-        return $qry->fetchAll();
+        $tweet = $qry->fetchAll()[0];
+        $tweet['utilisateur'] = self::getUserByTweet($tweet['id_utilisateur']);
+
+        return $tweet;
     }
 
     /**
@@ -96,5 +104,15 @@ class TweetsModele
 
         $qry = $QS->prepare("INSERT INTO " . self::$table . ' (nom, prenom, ville,email,img_profil,password,amis) VALUES ("' .$user->nom. '", "' .$user->prenom. '", "' .$user->ville. '", "' .$user->email. '" , "' .$user->img_profil. '" ,"' .hash("sha512", $user->password). '", "' .$user->amis. '", "")');
         $qry->execute();
+    }
+
+    public static function getUserByTweet($id)
+    {
+        global $QS;
+
+        $qry = $QS->prepare("SELECT id, nom, prenom, img_profil FROM UTILISATEUR WHERE id = $id");
+        $qry->execute();
+
+        return $qry->fetchAll();
     }
 }
