@@ -1,5 +1,4 @@
 <?php
-
 // DIVERS
 session_start();
 
@@ -87,6 +86,7 @@ $app->get('/tweets/user/:id', function($id) use ($app) {
 });
 
 $app->get('/tweets/user/:id/add/:post', function($id, $post) use ($app) {
+//    echo json_encode($app->request->getBody());
     echo json_encode(TweetsModele::insertTweet($id, json_decode($post)));
 });
 

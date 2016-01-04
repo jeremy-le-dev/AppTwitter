@@ -3,7 +3,7 @@
         <button data-nav-direction="back" data-ng-click="myGoBack()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button data-ng-click="publierTweet(user[0].id, post)" class="button button-block button-royal button-action">
+        <button data-ng-click="publierTweet(user[0].id, post)" class="button button-block button-dark button-action">
             Publier
         </button>
     </ion-nav-buttons>
@@ -22,7 +22,7 @@
                         </span>
                         <img data-ng-if="post.media" src="" data-ng-src="{{post.media}}" alt="" width="150">
                         <br />
-                        <textarea data-ng-model="post.description" placeholder="Votre texte..."></textarea>
+                        <textarea data-ng-model="post.description" placeholder="Votre texte..." style="border-radius: 10px;"></textarea>
                     </div>
                 </div>
             </div>

@@ -104,7 +104,8 @@ class TweetsModele
     {
         global $QS;
 
-        $qry = $QS->prepare("INSERT INTO " . self::$table . " (description, media, id_utilisateur, nb_like, heure_publication) VALUES ('$post->description', '$post->media', '$id', 0, NOW())");
+//        $qry = $QS->prepare("INSERT INTO " . self::$table . " (description, media, id_utilisateur, nb_like, heure_publication) VALUES ('$post->description', '$post->media', '$id', 0, NOW())");
+        $qry = $QS->prepare("INSERT INTO " . self::$table . " (description, media, id_utilisateur, nb_like, heure_publication) VALUES ('$post->description', 'img/tweets/gall-item-4.jpg', '$id', 0, NOW())");
 
         return $qry->execute();
     }

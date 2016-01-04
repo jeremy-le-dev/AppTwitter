@@ -100,7 +100,6 @@ angular.module('starter', ['ionic'])
                         });
                     };
 
-
                     $scope.doLogout = function() {
                         Users.deconnexion().then(function(data) {
                             if (data == true) {
@@ -126,16 +125,20 @@ angular.module('starter', ['ionic'])
                                 $scope.posts = posts;
                                 //console.log("posts: ", $scope.posts);
 
-                                $scope.like = function() {
+                                $scope.arrayILike = [];
 
+                                $scope.iLike = function(id) {
+                                    return $scope.arrayILike.indexOf(id) != -1;
                                 };
 
-                                $scope.dislike = function() {
-
+                                $scope.like = function(post) {
+                                    post.nb_like++;
+                                    $scope.arrayILike.push(post.id);
                                 };
 
-                                $scope.iLike = function() {
-
+                                $scope.dislike = function(post) {
+                                    post.nb_like--;
+                                    $scope.arrayILike.splice($scope.arrayILike.indexOf(post.id), 1);
                                 };
                             });
                         }]
@@ -151,9 +154,9 @@ angular.module('starter', ['ionic'])
                         controller: ["$rootScope", "$scope", "$state", "Posts", function($rootScope, $scope, $state, Posts) {
                             $scope.post = {};
                             $scope.publierTweet = function(id, post) {
-                                console.log(post);
+                                //console.log(post);
                                 Posts.addTweet(id, post).then(function(data) {
-                                    console.log(data);
+                                    //console.log(data);
                                     $state.go("app.feeds");
                                 });
                             };
@@ -163,7 +166,7 @@ angular.module('starter', ['ionic'])
                                 var reader  = new FileReader();
 
                                 reader.onloadend = function () {
-                                    $scope.post.media = reader.result;
+                                    //$scope.post.media = reader.result;
                                 };
 
                                 if (file) {
@@ -356,12 +359,21 @@ angular.module('starter', ['ionic'])
                         deferred.reject("Failed to get tweets");
                     });
 
-                $http.post('api.php/tweets/user/'+id+'/add/', JSON.stringify(post))
-                    .then(function(data) {
-                        console.log(data);
-                    }, function() {
+                //$http({
+                //    method: "post",
+                //    url: "api.php/tweets/user/"+id+"/add/",
+                //    data: JSON.stringify(post)
+                //}, function(data) {
+                //    console.log(data);
+                //    deferred.resolve(data);
+                //});
 
-                    });
+                //$http.post('api.php/tweets/user/'+id+'/add/', JSON.stringify(post))
+                //    .then(function(data) {
+                //        console.log(data);
+                //    }, function() {
+                //
+                //    });
 
                 return deferred.promise;
             },
