@@ -125,6 +125,18 @@ angular.module('starter', ['ionic'])
 
                                 $scope.posts = posts;
                                 //console.log("posts: ", $scope.posts);
+
+                                $scope.like = function() {
+
+                                };
+
+                                $scope.dislike = function() {
+
+                                };
+
+                                $scope.iLike = function() {
+
+                                };
                             });
                         }]
                     }
