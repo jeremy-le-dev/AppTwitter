@@ -46,13 +46,11 @@ $app->get('/connexion/:email/:password', function($email, $password) use ($app) 
 });
 
 // Inscription
-$app->get('/inscription/:nom/:prenom/:ville/:email/:img_profil/:password', function($nom, $prenom, $ville, $email, $img_profil, $password) use ($app) {
-    $user = UsersModele::insertUser($nom, $prenom, $ville, $email, $img_profil, $password);
-
-    echo json_encode($user);
+$app->get('/inscription/:user', function($user) use ($app) {
+    echo json_encode(UsersModele::insertUser(json_decode($user)));
 });
 
-// Deconnexio,
+// Deconnexion
 $app->get('/deconnexion', function() use ($app) {
     session_destroy();
     unset($_SESSION['user']);
@@ -86,6 +84,10 @@ $app->get('/tweets/:id', function($id) use ($app) {
 // Retourne tous les tweets d'un utilisateur
 $app->get('/tweets/user/:id', function($id) use ($app) {
     echo json_encode(TweetsModele::getTweetByIdUser($id));
+});
+
+$app->get('/tweets/user/:id/add/:post', function($id, $post) use ($app) {
+    echo json_encode(TweetsModele::insertTweet($id, json_decode($post)));
 });
 
 // ON LANCE L'APPLICATION

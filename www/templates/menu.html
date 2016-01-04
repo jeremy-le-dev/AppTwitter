@@ -10,7 +10,7 @@
                     <img src="" data-ng-src="{{user[0].img_profil}}" class="gem-profile-image" alt="">
                 </div>
                 <div class="col col-50">
-                    <h4 class="title">
+                    <h4 class="title" data-ui-sref="app.profile({id: user[0].id})">
                         {{user[0].prenom}}
                         <br/>
                         {{user[0].nom}}

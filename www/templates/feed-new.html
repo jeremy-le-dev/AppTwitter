@@ -1,59 +1,31 @@
-<!-- Title for the ion view -->
-<ion-view title="New Post">
-  <!-- ======================
-  LEFT SIDE BUTTON
-  ====================== -->
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
-  <!-- ======================
-  END LEFT SIDE BUTTON
-  ====================== -->
+<ion-view title="<img src='img/logo.png' alt='logo' style='height:30px;'>">
+    <ion-nav-buttons side="left">
+        <button data-nav-direction="back" data-ng-click="myGoBack()" class="button button-icon icon ion-chevron-left"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button data-ng-click="publierTweet(user[0].id, post)" class="button button-block button-royal button-action">
+            Publier
+        </button>
+    </ion-nav-buttons>
 
-  <!-- ======================
-  RIGHT SIDE BUTTON
-  ====================== -->
-  <ion-nav-buttons side="right">
-    <button class="button button-block  button-positive button-action">
-      Send/Post
-    </button>
-  </ion-nav-buttons>
-  <!-- ======================
-  EMD RIGHT SIDE BUTTON
-  ====================== -->
-  
-  <!-- ======================
-  MAIN CONTENT SECTION
-  ====================== -->
-  <ion-content class="has-header gem-ion-content">
-    <!-- ======================
-    GEMIONIC EDIT SECTION
-    ====================== -->
-    <div class="gem-edit-section">
-      <div class="gem-poster">
-        <div class="padding">
-          <h4>
-            <img src="img/gemionic/profile-image.jpg" alt="" class="gem-circle profile-image"> <b>Maryiln</b>
-          </h4>
-          <div class="padding">
-          <!-- Textarea for editing text -->
-          <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta aspernatur, quisquam asperiores quas cum eius quo facere. Officia excepturi sunt consequuntur, assumenda iste iusto non fugit aliquid illum voluptatum, quae!</textarea>
-          </div>
+    <ion-content class="has-header gem-ion-content">
+        <div class="gem-edit-section">
+            <div class="gem-poster">
+                <div class="padding">
+                    <h4>
+                        <img src="" data-ng-src="{{user[0].img_profil}}" alt="" class="gem-circle profile-image">
+                        <b>{{user[0].prenom}}&nbsp;{{user[0].nom}}</b>
+                    </h4>
+                    <div class="padding">
+                        <span>
+                            Ajouter un média&nbsp;: <input type="file" name="postMedia" id="postMedia" onchange="angular.element(this).scope().previewFile()">
+                        </span>
+                        <img data-ng-if="post.media" src="" data-ng-src="{{post.media}}" alt="" width="150">
+                        <br />
+                        <textarea data-ng-model="post.description" placeholder="Votre texte..."></textarea>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      
-      <div class="row gem-poster-controls padding"><!-- Bottom Controls - extends '.row' with padding -->
-        <a href="#" class="col control"><i class="icon ion-email action"></i></a>
-        <a href="#" class="col control"><i class="icon ion-android-location action"></i></a>
-        <a href="#" class="col control"><i class="icon ion-ios7-cloud-upload action"></i></a>
-        <a href="#" class="col control"><i class="icon ion-android-send action"></i></a>
-      </div>
-    </div>
-    <!-- ======================
-    END GEMIONIC EDIT SECTION
-    ====================== -->
-  </ion-content>
-  <!-- ======================
-  END MAIN CONTENT SECTION
-  ====================== -->
+    </ion-content>
 </ion-view>

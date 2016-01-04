@@ -85,16 +85,17 @@ angular.module('starter', ['ionic'])
                     };
 
                     $scope.doSubscribe = function () {
-                        console.log('3');
-                        Users.inscription($scope.subscribeData.nom, $scope.subscribeData.prenom, $scope.subscribeData.ville, $scope.subscribeData.email, $scope.subscribeData.img_profil, $scope.subscribeData.password).then(function(data) {
-                            if (data.length > 0) {
-                                console.log('1');
-                                $scope.closeSubscribe();
-                                $state.go("app.feeds");
-                                $rootScope.user = data;
-                            } else {
-                                $scope.messageErreur = "champs incorrecte ou vide";
-                            }
+                        Users.inscription($scope.subscribeData).then(function(data) {
+                            $scope.closeSubscribe();
+                            Users.connexion($scope.subscribeData.email, $scope.subscribeData.password).then(function(data) {
+                                if (data.length > 0) {
+                                    $scope.closeLogin();
+                                    $state.go("app.feeds");
+                                    $rootScope.user = data;
+                                } else {
+                                    $scope.messageErreur = "Email ou mot de passe incorrecte";
+                                }
+                            });
                         });
                     };
 
@@ -124,6 +125,40 @@ angular.module('starter', ['ionic'])
                                 $scope.posts = posts;
                                 //console.log("posts: ", $scope.posts);
                             });
+                        }]
+                    }
+                }
+            })
+
+            .state('app.newfeed', {
+                url: "/new",
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/feed-new.html",
+                        controller: ["$rootScope", "$scope", "$state", "Posts", function($rootScope, $scope, $state, Posts) {
+                            $scope.post = {};
+                            $scope.publierTweet = function(id, post) {
+                                console.log(post);
+                                Posts.addTweet(id, post).then(function(data) {
+                                    console.log(data);
+                                    $state.go("app.feeds");
+                                });
+                            };
+
+                            $scope.previewFile = function() {
+                                var file    = document.getElementById('postMedia').files[0];
+                                var reader  = new FileReader();
+
+                                reader.onloadend = function () {
+                                    $scope.post.media = reader.result;
+                                };
+
+                                if (file) {
+                                    reader.readAsDataURL(file);
+                                } else {
+                                    $scope.post.media = "";
+                                }
+                            }
                         }]
                     }
                 }
@@ -240,10 +275,10 @@ angular.module('starter', ['ionic'])
 
                 return deferred.promise;
             },
-            inscription: function(nom, prenom, ville, email, img_profil, password) {
+            inscription: function(user) {
                 var deferred = $q.defer();
 
-                $http.get("api.php/inscription/"+nom+"/"+prenom+"/"+ville+"/"+email+"/"+img_profil+"/"+password)
+                $http.get("api.php/inscription/"+JSON.stringify(user))
                     .success(function(data) {
                         deferred.resolve(data);
                     })
@@ -297,8 +332,25 @@ angular.module('starter', ['ionic'])
 
                 return deferred.promise;
             },
-            add: function(post) {
-                // AJOUT POST
+            addTweet: function(id, post) {
+                var deferred = $q.defer();
+
+                $http.get("api.php/tweets/user/"+id+"/add/"+JSON.stringify(post))
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get tweets");
+                    });
+
+                $http.post('api.php/tweets/user/'+id+'/add/', JSON.stringify(post))
+                    .then(function(data) {
+                        console.log(data);
+                    }, function() {
+
+                    });
+
+                return deferred.promise;
             },
             remove: function(id) {
                 // SUPPRESSION POST

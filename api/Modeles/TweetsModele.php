@@ -21,7 +21,7 @@ class TweetsModele
     {
         global $QS;
 
-        $qry = $QS->prepare("SELECT id, description, media, id_utilisateur, nb_like, heure_publication FROM " . self::$table);
+        $qry = $QS->prepare("SELECT id, description, media, id_utilisateur, nb_like, heure_publication FROM " . self::$table . " ORDER BY heure_publication DESC");
         $qry->execute();
 
         $tweets = $qry->fetchAll();
@@ -94,18 +94,27 @@ class TweetsModele
     }
 
     /**
-     * Ajoute l'utilisateur passé en paramètre dans la base de données et envoi la confirmation d'inscription
+     * Ajoute le tweet passé en paramètre dans la base de données
      *
-     * @param $user
+     * @param $id
+     * @param $post
+     * @return bool
      */
-    public static function insertTweet($user)
+    public static function insertTweet($id, $post)
     {
         global $QS;
 
-        $qry = $QS->prepare("INSERT INTO " . self::$table . ' (nom, prenom, ville,email,img_profil,password,amis) VALUES ("' .$user->nom. '", "' .$user->prenom. '", "' .$user->ville. '", "' .$user->email. '" , "' .$user->img_profil. '" ,"' .hash("sha512", $user->password). '", "' .$user->amis. '", "")');
-        $qry->execute();
+        $qry = $QS->prepare("INSERT INTO " . self::$table . " (description, media, id_utilisateur, nb_like, heure_publication) VALUES ('$post->description', '$post->media', '$id', 0, NOW())");
+
+        return $qry->execute();
     }
 
+    /**
+     * Retourne l'utilisateur d'un tweet
+     *
+     * @param $id
+     * @return array
+     */
     public static function getUserByTweet($id)
     {
         global $QS;

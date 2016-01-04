@@ -1,41 +1,42 @@
 <div class="modal">
-  <ion-header-bar>
-    <h1 class="title">Inscription</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeSubscribe()"><i class="icon ion-close-circled"></i></button>
-    </div>
-  </ion-header-bar>
-  <ion-content>
-    <form ng-submit="doSubscribe()" class="gem-form">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Nom</span>
-          <input type="text" ng-model="subscribeData.nom" placeholder="nom">
-        </label>
-         <label class="item item-input">
-          <span class="input-label">Prénom</span>
-          <input type="text" ng-model="subscribeData.prenom" placeholder="prenom">
-        </label>
-         <label class="item item-input">
-          <span class="input-label">Email</span>
-          <input type="email" ng-model="subscribeData.email" placeholder="email">
-        </label>
-         <label class="item item-input">
-          <span class="input-label">Ville</span>
-          <input type="text" ng-model="subscribeData.ville" placeholder="ville">
-        </label>
-         <label class="item item-input">
-          <span class="input-label">Image Profil</span>
-          <input type="file" ng-model="subscribeData.img_profil" placeholder="img_profil">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Mot de passe</span>
-          <input type="password" ng-model="subscribeData.password" placeholder="Password">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Valider</button>
-        </label>
-      </div>
-    </form>
-  </ion-content>
+    <ion-header-bar>
+        <h1 class="title">Inscription</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeSubscribe()"><i class="icon ion-close-circled"></i>
+            </button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form data-ng-submit="doSubscribe()" class="gem-form">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Nom</span>
+                    <input type="text" ng-model="subscribeData.nom" placeholder="nom">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Prénom</span>
+                    <input type="text" ng-model="subscribeData.prenom" placeholder="prenom">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Email</span>
+                    <input type="email" ng-model="subscribeData.email" placeholder="email">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Ville</span>
+                    <input type="text" ng-model="subscribeData.ville" placeholder="ville">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Image Profil</span>
+                    <input type="file" ng-model="subscribeData.img_profil" placeholder="img_profil">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Mot de passe</span>
+                    <input type="password" ng-model="subscribeData.password" placeholder="Password">
+                </label>
+                <label class="item">
+                    <button class="button button-block button-positive" type="submit">Valider</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
 </div>

@@ -21,7 +21,7 @@ class UsersModele
     {
         global $QS;
 
-        $qry = $QS->prepare("SELECT id, nom, prenom, ville, email, img_profil, date_creation, amis FROM " . self::$table);
+        $qry = $QS->prepare("SELECT id, nom, prenom, ville, email, img_profil, date_creation FROM " . self::$table);
         $qry->execute();
 
         return $qry->fetchAll();
@@ -74,13 +74,19 @@ class UsersModele
      * Ajoute l'utilisateur passé en paramètre dans la base de données et envoi la confirmation d'inscription
      *
      * @param $user
+     * @return bool
      */
-    public static function insertUser($nom, $prenom, $ville, $email, $img_profil, $password)
+    public static function insertUser($user)
     {
         global $QS;
 
-        $qry = $QS->prepare("INSERT INTO " . self::$table . " (nom, prenom, ville, email, img_profil, password, date_creation) VALUES ('" .$nom. "', '" .$prenom. "', '" .$ville. "', '" .$email. "'' , '" .$img_profil. "'' ,'" .hash("sha512", $password). "', 'NOW())'");
-        $qry->execute();
+        if (!isset($user->img_profil)) {
+            $user->img_profil = "img/tweets/avatar.png";
+        }
+
+        $qry = $QS->prepare("INSERT INTO " . self::$table . " (nom, prenom, ville, email, img_profil, password, date_creation) VALUES ('$user->nom', '$user->prenom', '$user->ville', '$user->email' , '$user->img_profil' ,'" .hash("sha512", $user->password). "', NOW())");
+
+        return $qry->execute();
     }
 
     public static function canConnexion($email, $password)
