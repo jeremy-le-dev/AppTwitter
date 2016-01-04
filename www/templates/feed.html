@@ -2,13 +2,10 @@
     <ion-nav-buttons side="left">
         <button data-nav-direction="back" data-ng-click="myGoBack()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-share"></button>
-    </ion-nav-buttons>
 
     <ion-content class="gem-ion-content single-post">
         <div class="gem-post-media">
-            <img src="" data-ng-src="{{post.media}}" alt="" class="fluid-image">
+            <img src="" data-ng-src="{{post.media}}" alt="" class="fluid-image" data-ng-if="post.media">
 
             <h3 class="post-title">
                 {{post.description}}
