@@ -85,10 +85,8 @@ angular.module('starter', ['ionic'])
                     };
 
                     $scope.doSubscribe = function () {
-                        console.log('3');
                         Users.inscription($scope.subscribeData.nom, $scope.subscribeData.prenom, $scope.subscribeData.ville, $scope.subscribeData.email, $scope.subscribeData.img_profil, $scope.subscribeData.password).then(function(data) {
                             if (data.length > 0) {
-                                console.log('1');
                                 $scope.closeSubscribe();
                                 $state.go("app.feeds");
                                 $rootScope.user = data;
