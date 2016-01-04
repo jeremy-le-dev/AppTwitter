@@ -127,8 +127,7 @@ angular.module('starter', ['ionic'])
                 url: "/profile/:id",
                 views: {
                     'menuContent' :{
-                        //templateUrl: "templates/profile.html",
-                        templateUrl: "templates/profile-edit.html",
+                        templateUrl: "templates/profile.html",
                         controller: ["$rootScope", "$scope", "$ionicTabsDelegate", "$stateParams", "Users", "Posts", function($rootScope, $scope, $ionicTabsDelegate, $stateParams, Users, Posts) {
                             Users.getById($stateParams.id).then(function (user) {
                                 $scope.userPage = user;
