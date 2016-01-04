@@ -69,6 +69,36 @@ angular.module('starter', ['ionic'])
                         });
                     };
 
+                    $scope.subscribeData = {};
+                    $ionicModal.fromTemplateUrl('templates/subscribe.html', {
+                        scope: $scope
+                    }).then(function (modal) {
+                        $scope.modal2 = modal;
+                    });
+
+                    $scope.closeSubscribe = function () {
+                        $scope.modal2.hide();
+                    };
+
+                    $scope.subscribe = function () {
+                        $scope.modal2.show();
+                    };
+
+                    $scope.doSubscribe = function () {
+                        console.log('3');
+                        Users.inscription($scope.subscribeData.nom, $scope.subscribeData.prenom, $scope.subscribeData.ville, $scope.subscribeData.email, $scope.subscribeData.img_profil, $scope.subscribeData.password).then(function(data) {
+                            if (data.length > 0) {
+                                console.log('1');
+                                $scope.closeSubscribe();
+                                $state.go("app.feeds");
+                                $rootScope.user = data;
+                            } else {
+                                $scope.messageErreur = "champs incorrecte ou vide";
+                            }
+                        });
+                    };
+
+
                     $scope.doLogout = function() {
                         Users.deconnexion().then(function(data) {
                             if (data == true) {
@@ -206,6 +236,19 @@ angular.module('starter', ['ionic'])
                     })
                     .error(function() {
                         deferred.reject("Failed to get deconnexion");
+                    });
+
+                return deferred.promise;
+            },
+            inscription: function(nom, prenom, ville, email, img_profil, password) {
+                var deferred = $q.defer();
+
+                $http.get("api.php/inscription/"+nom+"/"+prenom+"/"+ville+"/"+email+"/"+img_profil+"/"+password)
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function() {
+                        deferred.reject("Failed to get inscription");
                     });
 
                 return deferred.promise;

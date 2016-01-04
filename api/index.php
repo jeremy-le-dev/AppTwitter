@@ -45,6 +45,13 @@ $app->get('/connexion/:email/:password', function($email, $password) use ($app) 
     echo json_encode($user);
 });
 
+// Inscription
+$app->get('/inscription/:nom/:prenom/:ville/:email/:img_profil/:password', function($nom, $prenom, $ville, $email, $img_profil, $password) use ($app) {
+    $user = UsersModele::insertUser($nom, $prenom, $ville, $email, $img_profil, $password);
+
+    echo json_encode($user);
+});
+
 // Deconnexio,
 $app->get('/deconnexion', function() use ($app) {
     session_destroy();

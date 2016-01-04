@@ -75,11 +75,11 @@ class UsersModele
      *
      * @param $user
      */
-    public static function insertUser($user)
+    public static function insertUser($nom, $prenom, $ville, $email, $img_profil, $password)
     {
         global $QS;
 
-        $qry = $QS->prepare("INSERT INTO " . self::$table . ' (nom, prenom, ville, email, img_profil, password, amis) VALUES ("' .$user->nom. '", "' .$user->prenom. '", "' .$user->ville. '", "' .$user->email. '" , "' .$user->img_profil. '" ,"' .hash("sha512", $user->password). '", "' .$user->amis. '", "")');
+        $qry = $QS->prepare("INSERT INTO " . self::$table . " (nom, prenom, ville, email, img_profil, password, date_creation) VALUES ('" .$nom. "', '" .$prenom. "', '" .$ville. "', '" .$email. "'' , '" .$img_profil. "'' ,'" .hash("sha512", $password). "', 'NOW())'");
         $qry->execute();
     }
 
