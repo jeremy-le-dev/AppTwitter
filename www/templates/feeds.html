@@ -19,6 +19,7 @@
                     <h4 style="cursor:pointer;" data-nav-direction="forward"
                         data-ui-sref="app.profile({id: post.utilisateur[0].id})">{{post.utilisateur[0].prenom}}&nbsp;{{post.utilisateur[0].nom}}</h4>
                     <div class="gem-tiny-text news-item-stats">
+                            <h5>{{post.description}}</h5>
                         <i class="icon ion-clock"></i> Posté&nbsp;le&nbsp;{{post.heure_publication | date:"dd-MM-yyyy 'à' HH:mm"}}
                         <span class="news-comment-summary">
                             <i class="icon ion-heart"></i>
