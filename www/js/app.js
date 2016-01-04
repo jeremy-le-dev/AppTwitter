@@ -42,6 +42,8 @@ angular.module('starter', ['ionic'])
                         }
                     };
 
+                     
+
                     $scope.loginData = {};
                     $ionicModal.fromTemplateUrl('templates/login.html', {
                         scope: $scope
@@ -116,31 +118,38 @@ angular.module('starter', ['ionic'])
                 views: {
                     'menuContent': {
                         templateUrl: "templates/feeds.html",
-                        controller: ["$rootScope", "$scope", "Posts", function($rootScope, $scope, Posts) {
-                            Posts.getAll().then(function (posts) {
-                                posts.forEach(function(item) {
-                                    item.heure_publication = new Date(item.heure_publication).getTime();
-                                });
+                        controller: ["$rootScope", "$scope", "Posts","$timeout", function($rootScope, $scope, Posts, $timeout) {
 
-                                $scope.posts = posts;
-                                //console.log("posts: ", $scope.posts);
+                                //$scope.refresh = function() {
+                                    //$timeout(function() {
+                                        Posts.getAll().then(function (posts) {
+                                            posts.forEach(function(item) {
+                                                item.heure_publication = new Date(item.heure_publication).getTime();
+                                            });
 
-                                $scope.arrayILike = [];
+                                            $scope.posts = posts;
 
-                                $scope.iLike = function(id) {
-                                    return $scope.arrayILike.indexOf(id) != -1;
-                                };
+                                            $scope.arrayILike = [];
 
-                                $scope.like = function(post) {
-                                    post.nb_like++;
-                                    $scope.arrayILike.push(post.id);
-                                };
+                                            $scope.iLike = function(id) {
+                                                return $scope.arrayILike.indexOf(id) != -1;
+                                            };
 
-                                $scope.dislike = function(post) {
-                                    post.nb_like--;
-                                    $scope.arrayILike.splice($scope.arrayILike.indexOf(post.id), 1);
-                                };
-                            });
+                                            $scope.like = function(post) {
+                                                post.nb_like++;
+                                                $scope.arrayILike.push(post.id);
+                                            };
+
+                                            $scope.dislike = function(post) {
+                                                post.nb_like--;
+                                                $scope.arrayILike.splice($scope.arrayILike.indexOf(post.id), 1);
+                                            };
+                                        });
+                                    //}, 10000);
+                                    //$scope.refresh();
+                                //};
+
+                                //$scope.refresh();
                         }]
                     }
                 }
